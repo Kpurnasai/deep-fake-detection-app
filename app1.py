@@ -3,12 +3,26 @@ import cv2
 import numpy as np
 from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
+import os
+import requests
+MODEL_PATH = "deepfake-detection-model.keras"
+MODEL_URL = "https://www.dropbox.com/scl/fi/81lv8lkf7oyvx2u00l1ca/deepfake-detection-model.keras?rlkey=7jd2l85l70zxnppof02lwbu5d&st=u2i6xd6p&dl=0"  
 
+@st.cache_resource
+def load_model():
+    if not os.path.exists(MODEL_PATH):
+        st.info("Downloading model from Dropbox...")
+        with open(MODEL_PATH, "wb") as f:
+            response = requests.get(MODEL_URL)
+            f.write(response.content)
+        st.success("Download complete!")
+
+    st.info("Loading model...")
 # Load OpenCV's pre-trained face detector
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 # Load your pre-trained classification model
-model = load_model('deepfake-detection-model.keras')  # Update with actual path
+model = load_model()  
 
 def detect_deepfake(video_path):
     cap = cv2.VideoCapture(video_path)
