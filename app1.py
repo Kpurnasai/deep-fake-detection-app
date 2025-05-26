@@ -6,7 +6,7 @@ from tensorflow.keras.models import load_model
 import os
 import requests
 MODEL_PATH = "deepfake-detection-model.keras"
-MODEL_URL = "https://www.dropbox.com/scl/fi/81lv8lkf7oyvx2u00l1ca/deepfake-detection-model.keras?rlkey=7jd2l85l70zxnppof02lwbu5d&st=u2i6xd6p&dl=0"  
+MODEL_URL = "https://www.dropbox.com/scl/fi/81lv8lkf7oyvx2u00l1ca/deepfake-detection-model.keras?rlkey=7jd2l85l70zxnppof02lwbu5d&st=u2i6xd6p&dl=1"  
 
 @st.cache_resource
 def load_model():
